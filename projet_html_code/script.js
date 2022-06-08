@@ -28,7 +28,8 @@ const playerSelection = document.querySelector(".player-pick-text");
 const houseSelection = document.querySelector(".house-pick-text");
 const results = document.querySelector(".annouce-winner");
 
-hands.forEach((hand) =>{
+let handsArray = Array.from(hands) // convertit le nodeList du querySelectorAll en tableau
+handsArray.slice(0, 3).forEach((hand) =>{
     hand.addEventListener('click', function(){
         
         // let handSelected = hand;
@@ -42,7 +43,7 @@ hands.forEach((hand) =>{
         // playerSelection.nextElementSibling.replaceWith(handSelected);
 
         /* player */
-        let playerSelectedColor = hand.classList[1]
+        let playerSelectedColor = hand.classList[1] // on récupère la seconde classe de hand
         playerSelection.nextElementSibling.classList.remove("replace");
         playerSelection.nextElementSibling.classList.add(playerSelectedColor);
 
@@ -51,17 +52,17 @@ hands.forEach((hand) =>{
         div2.classList.add("option");//ajouter la classe option à la div
         playerSelection.nextElementSibling.append(div2);//on insère la div en tant qu'enfant du frère qui suit houseSelection
 
-        var img = document.createElement("img");
-        img.setAttribute("alt", "option");
-        img.setAttribute("src", "icon-"+playerSelectedColor+".svg");
-        div2.append(img);/*insertion image en tant qu'enfant dela div*/
+        var img = document.createElement("img"); //on crée une image
+        img.setAttribute("alt", "option"); //on ajoute un attribut alt
+        img.setAttribute("src", "icon-"+playerSelectedColor+".svg");  //on ajoute un attribut src
+        div2.append(img);/*insertion image en tant qu'enfant de la div*/
         /* Fin player*/
         /* House */
         
-        const arrayHand = ['scissors', 'rock', 'paper'];
+        const arrayHand = ['scissors', 'rock', 'paper']; //on crée un tableau
 
         let houseSelected = Math.floor(Math.random() * (Math.floor(2) - Math.ceil(0) +1)) + Math.ceil(0);
-        let houseSelectedColor = arrayHand[houseSelected];
+        let houseSelectedColor = arrayHand[houseSelected]; //on sélectionne le nom en fonction du rang tiré
         houseSelection.nextElementSibling.classList.remove("replace");
         houseSelection.nextElementSibling.classList.add(houseSelectedColor);
 
@@ -76,9 +77,9 @@ hands.forEach((hand) =>{
         div.append(img);/*insertion im  ge en tant qu'enfant dela div*/
         /* Fin house */
         /* Résultats gagnants */
-        let comparerResult = document.querySelector(".annouce-winner-text");
-        let comparerResultText = comparer(playerSelectedColor, houseSelectedColor);
-        comparerResult.textContent = comparerResultText;
+        let comparerResult = document.querySelector(".annouce-winner-text"); //on sélectionne l'annonce
+        let comparerResultText = comparer(playerSelectedColor, houseSelectedColor); //on lance la fonction comparer et on affecte le résultat dans la variable comparerResultText
+        comparerResult.textContent = comparerResultText; //on insère le résultat dans comparerResult
         /* Fin résultats gagnants */
         /* score */
         if (comparerResultText == "YOU WIN"){
@@ -86,10 +87,10 @@ hands.forEach((hand) =>{
         }else if (comparerResultText == "YOU LOSE"){
             score=score-1
         }
-        localStorage.setItem("scoreValue", score)
+        localStorage.setItem("scoreValue", score) //on crée l'élement scoreValue dans le localStorage et on affecte le score
 
         let scoreText = document.querySelector(".score-value");
-        scoreText.textContent = localStorage.getItem("scoreValue");
+        scoreText.textContent = localStorage.getItem("scoreValue"); //on insère le localStorage dans scoreText
         /* Fin score */
         /* bouton play-again */
         const playAgain = document.querySelector(".play-again-btn");
