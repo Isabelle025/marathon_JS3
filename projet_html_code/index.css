@@ -248,6 +248,12 @@ aside {
   z-index: -1;
   opacity: 0;
 }
+
+/*.aside-click{
+  z-index: 1;
+  opacity: 1;
+}classe créée et en comentaire dans le js*/
+
 .aside-rules {
   font-size: 2rem;
   color: var(--dark-text);
