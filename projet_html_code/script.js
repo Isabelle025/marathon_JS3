@@ -1,3 +1,7 @@
+let score = 0;
+let scoreText = document.querySelector(".score-value");
+scoreText.textContent = localStorage.getItem("scoreValue");
+
 const bouton = document.querySelector(".rules-btn");
 const asideRules = document.querySelector("aside");
 const closeRules = document.querySelector(".close-rules");//un point avant car une classe (comme en css)
@@ -38,7 +42,6 @@ hands.forEach((hand) =>{
         // playerSelection.nextElementSibling.replaceWith(handSelected);
 
         /* player */
-        console.log(hand.classList[1]);
         let playerSelectedColor = hand.classList[1]
         playerSelection.nextElementSibling.classList.remove("replace");
         playerSelection.nextElementSibling.classList.add(playerSelectedColor);
@@ -72,6 +75,22 @@ hands.forEach((hand) =>{
         img.setAttribute("src", "icon-"+houseSelectedColor+".svg");
         div.append(img);/*insertion im  ge en tant qu'enfant dela div*/
         /* Fin house */
+        /* Résultats gagnants */
+        let comparerResult = document.querySelector(".annouce-winner-text");
+        let comparerResultText = comparer(playerSelectedColor, houseSelectedColor);
+        comparerResult.textContent = comparerResultText;
+        /* Fin résultats gagnants */
+        /* score */
+        if (comparerResultText == "YOU WIN"){
+            score=score+1
+        }else if (comparerResultText == "YOU LOSE"){
+            score=score-1
+        }
+        localStorage.setItem("scoreValue", score)
+
+        let scoreText = document.querySelector(".score-value");
+        scoreText.textContent = localStorage.getItem("scoreValue");
+        /* Fin score */
         /* bouton play-again */
         const playAgain = document.querySelector(".play-again-btn");
         playAgain.addEventListener('click', function(){
@@ -91,3 +110,29 @@ hands.forEach((hand) =>{
 
     })
 })
+
+function comparer(choix1, choix2) {
+    if (choix1 === choix2) {
+      return 'EQUAL';
+    } else if (choix1 === 'rock') {
+      if (choix2 === 'scissors') {
+        return 'YOU WIN';
+      } else if (choix2 === 'paper') {
+        return 'YOU LOSE';
+      }
+    } else if (choix1 === 'paper') {
+      if (choix2 === 'rock') {
+        return 'YOU WIN';
+      } else if (choix2 === 'scissors') {
+        return 'YOU LOSE';
+      }
+    } else if (choix1 === 'scissors') {
+      if (choix2 === 'rock') {
+        return 'YOU LOSE';
+      } else if (choix2 === 'paper') {
+        return 'YOU WIN';
+      }
+    }
+  }
+
+  
