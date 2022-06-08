@@ -28,11 +28,14 @@ hands.forEach((hand) =>{
     hand.addEventListener('click', function(){
         
         let handSelected = hand;
-        step1.style.opacity = 0;
-        step2.style.opacity = 1;
-        step2.style.transform = "scale(1, 1)";
+        step1.classList.add("step-1-minimize");
+        step2.classList.add("step-2-minimizer");
+        // step1.style.opacity = 0;
+        // step2.style.opacity = 1;
+        // step2.style.transform = "scale(1, 1)";
         results.style.display = "none";
         //playerSelection.insertAdjacentElement("afterend",handSelected);//insère handSelected après la fin de playerSelection 
         playerSelection.nextElementSibling.replaceWith(handSelected);
+
     })
 })
